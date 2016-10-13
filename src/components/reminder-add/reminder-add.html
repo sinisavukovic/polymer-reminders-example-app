@@ -1,0 +1,64 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<!-- Styles -->
+<link rel="import" href="../../styles/shared-styles.html">
+
+<dom-module id="reminder-add">
+  <template>
+    <style include="shared-styles buttons">
+      .add-reminder-wrapper {
+        text-align: right;
+      }
+
+      paper-dialog {
+        min-width: 90%;
+      }
+
+      footer {
+        text-align: right;
+      }
+
+      vaadin-date-picker {
+        margin-bottom: 5px;
+      }
+    </style>
+    <div class="add-reminder-wrapper">
+      <paper-button id="new-reminder-btn" class="primary" on-tap="_openReminderModal" raised>Add Reminder</paper-button>
+    </div>
+    <paper-dialog id="newReminderDialog"
+                  entry-animation="scale-up-animation"
+                  exit-animation="fade-out-animation"
+                  with-backdrop>
+      <header>
+        <h2>Add new reminder</h2>
+      </header>
+
+      <paper-dialog-scrollable class="container flex layout vertical">
+        <paper-input id="reminderTask"
+                     label="Task name">
+        </paper-input>
+        <paper-textarea id="reminderDescription"
+                        label="Task description">
+        </paper-textarea>
+        <vaadin-date-picker id="reminderDate" class="entry-input" icon="icons:date-range" label="Due date"
+                            value="{{reminder.dueDate}}"></vaadin-date-picker>
+      </paper-dialog-scrollable>
+      <footer class="flex layout vertical">
+        <paper-button on-tap="_onCloseReminderModal">
+          Cancel
+        </paper-button>
+        <paper-button id="addNewReminder" on-tap="_onAddReminder">
+          Add
+        </paper-button>
+      </footer>
+    </paper-dialog>
+  </template>
+  <script src="reminder-add.js"></script>
+</dom-module>

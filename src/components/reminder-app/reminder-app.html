@@ -1,0 +1,38 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../my-icons.html">
+<link rel="import" href="../reminder-list/reminder-list.html">
+<link rel="import" href="../reminder-data/reminder-data.html">
+<!-- Styles -->
+<link rel="import" href="../../styles/shared-styles.html">
+<link rel="import" href="../../styles/buttons.html">
+
+<dom-module id="reminder-app">
+  <template>
+    <style include="shared-styles buttons">
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+
+      .content {
+        padding: 15px;
+      }
+    </style>
+
+    <app-header>
+      <app-toolbar>
+        <div main-title>Reminder App</div>
+      </app-toolbar>
+    </app-header>
+    <div id="container" class="content">
+      <reminder-data reminders="{{ reminders }}"></reminder-data>
+      <reminder-list id="reminders" reminders="{{reminders}}"></reminder-list>
+    </div>
+
+  </template>
+  <script src="reminder-app.js"></script>
+</dom-module>

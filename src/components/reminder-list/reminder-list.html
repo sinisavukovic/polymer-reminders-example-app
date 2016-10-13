@@ -1,0 +1,23 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../reminder-item/reminder-item.html">
+<link rel="import" href="../reminder-add/reminder-add.html">
+
+<!-- Styles -->
+<link rel="import" href="../../styles/shared-styles.html">
+
+<dom-module id="reminder-list">
+  <template>
+    <style include="shared-styles iron-flex iron-flex-alignment"></style>
+    <reminder-add></reminder-add>
+    <template is="dom-repeat"
+              items="{{reminders}}"
+              rendered-item-count="{{renderedCount}}"
+              as="reminder">
+      <reminder-item reminder="{{ reminder }}"></reminder-item>
+    </template>
+    <template is="dom-if" if="{{!renderedCount}}">
+      <paper-material>No reminders!</paper-material>
+    </template>
+  </template>
+  <script src="reminder-list.js"></script>
+</dom-module>

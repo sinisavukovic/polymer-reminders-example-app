@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>leave-type-menu-spec</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+  <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+
+  <link rel="import" href="../src/components/reminder-list/reminder-list.html">
+</head>
+<body>
+
+<test-fixture id="basic">
+  <template>
+    <reminder-list></reminder-list>
+  </template>
+</test-fixture>
+
+<script>
+
+  suite('<reminder-app>', function () {
+    var element, task, description, dueDate, addBtn, dialog, reminders;
+
+    setup(function () {
+      element = fixture('basic');
+      element.reminders = [ {
+        task: 'Test task'
+      }, {
+        task: 'Test task 2'
+      } ];
+    });
+
+    test("should have all input elements", function (done) {
+      assert.isNotNull(task);
+      assert.isNotNull(description);
+      assert.isNotNull(dueDate);
+      done();
+    });
+
+    test("should add new reminder", function (done) {
+
+      flush(function () {
+        var newTask = {
+          task: "New Task",
+          description: 'New Description',
+          dueDate: '2016-12-12'
+        };
+
+        var activeElement = Polymer.dom(element.root).querySelector('reminder-add');
+
+        task = Polymer.dom(activeElement.root).querySelector('#reminderTask');
+        description = Polymer.dom(activeElement.root).querySelector('#reminderDescription');
+        dueDate = Polymer.dom(activeElement.root).querySelector('#reminderDate');
+
+        task.value = newTask.task;
+        description.value = newTask.description;
+        dueDate.value = newTask.dueDate;
+
+        element.addEventListener('add-reminder', function (e) {
+          assert.deepEqual(newTask, e.detail.reminder);
+          done();
+        });
+
+        addBtn = Polymer.dom(activeElement.root).querySelector('#addNewReminder');
+        addBtn.click();
+      });
+
+      flush(function () {
+        reminders = Polymer.dom(element.root).querySelectorAll('reminder-item');
+        assert.equal(reminders.length, 3);
+      })
+    });
+  });
+</script>
+
+</body>
+</html>

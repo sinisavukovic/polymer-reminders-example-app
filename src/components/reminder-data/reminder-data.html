@@ -1,0 +1,13 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="reminder-data">
+  <template>
+    <!-- This can be later replaced with some other database provider -->
+
+    <iron-localstorage name="reminders"
+                       value="{{reminders}}"
+                       on-iron-localstorage-load-empty="defaultReminders"></iron-localstorage>
+  </template>
+  <script src="reminder-data.js"></script>
+</dom-module>

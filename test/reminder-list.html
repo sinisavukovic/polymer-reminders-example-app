@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>leave-type-menu-spec</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+  <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../src/components/reminder-list/reminder-list.html">
+
+</head>
+<body>
+
+<test-fixture id="basic">
+  <template>
+    <reminder-list></reminder-list>
+  </template>
+</test-fixture>
+
+<script>
+
+  suite('<reminder-list>', function() {
+    var element, reminders;
+
+    setup(function() {
+      element = fixture('basic');
+      element.reminders = [ {
+        task: 'Test task'
+      }, {
+        task: 'Test task 2'
+      }];
+    });
+
+    test("should display list of reminders", function(done) {
+      flush(function () {
+        reminders = Polymer.dom(element.root).querySelectorAll('reminder-item')
+        assert.equal(reminders.length, 2);
+        done();
+      })
+    });
+  });
+</script>
+
+</body>
+</html>

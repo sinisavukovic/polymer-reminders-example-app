@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>leave-type-menu-spec</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+  <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+
+  <link rel="import" href="../src/components/reminder-list/reminder-list.html">
+</head>
+<body>
+
+<test-fixture id="basic">
+  <template>
+    <reminder-list></reminder-list>
+  </template>
+</test-fixture>
+
+<script>
+
+  suite('<reminder-app>', function () {
+    var element, task, description, dueDate, addBtn, dialog, reminders;
+
+    var expectedReminder = {
+      task: 'Test task',
+      description: "Description",
+      dueDate: "2010-12-12"
+    };
+
+    setup(function () {
+      element = fixture('basic');
+      element.reminders = [ expectedReminder, { task: 'Test task 2' } ];
+    });
+
+    test("should have all input elements", function (done) {
+      assert.isNotNull(task);
+      assert.isNotNull(description);
+      assert.isNotNull(dueDate);
+      done();
+    });
+
+    test("should have reminder in edit popup", function (done) {
+
+      flush(function () {
+        reminders = Polymer.dom(element.root).querySelectorAll('reminder-item');
+
+        task = reminders[ 0 ].querySelector('#reminderTask').value;
+        description = reminders[ 0 ].querySelector('#reminderDescription').value;
+        dueDate = reminders[ 0 ].querySelector('#reminderDate').value;
+
+        var reminder = {
+          task: task,
+          description: description,
+          dueDate: dueDate
+        };
+
+        assert.deepEqual(expectedReminder, reminder);
+        done();
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
